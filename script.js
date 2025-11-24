@@ -1,32 +1,29 @@
-//your JS code here. If required.
-const form = document.getElementById("form");
-const ageInput = document.getElementById("age");
-const nameInput = document.getElementById("name");
+document.getElementById("btn").addEventListener("click", function (e) {
+  e.preventDefault();
 
-form.addEventListener("submit", function (event) {
-  event.preventDefault();
-
-  const age = ageInput.value.trim();
-  const name = nameInput.value.trim();
+  const age = document.getElementById("age").value;
+  const name = document.getElementById("name").value;
 
   // Validation
   if (age === "" || name === "") {
-    alert("Please enter valid details.");
+    alert("Please enter valid details");  // ✔ No dot
     return;
   }
 
-  // Promise for age check after 4 seconds
-  const checkAgePromise = new Promise((resolve, reject) => {
+  // Promise logic
+  new Promise((resolve, reject) => {
     setTimeout(() => {
       if (Number(age) > 18) {
-        resolve(`Welcome, ${name}. You can vote.`);
+        resolve();
       } else {
-        reject(`Oh sorry ${name}. You aren't old enough.`);
+        reject();
       }
     }, 4000);
-  });
-
-  checkAgePromise
-    .then((msg) => alert(msg))
-    .catch((err) => alert(err));
+  })
+    .then(() => {
+      alert(`Welcome, ${name}. You can vote.`);
+    })
+    .catch(() => {
+      alert(`Oh sorry ${name}. You aren't old enough.`);
+    });
 });
